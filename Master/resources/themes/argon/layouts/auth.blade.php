@@ -57,27 +57,7 @@
                         </div>
                      </div>
                   </div>
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item">
-                        <a class="nav-link nav-link-icon" href="#">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="nav-link-inner--text">Client Area</span>
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link nav-link-icon" href="#">
-                        <i class="fas fa-life-ring"></i>
-                        <span class="nav-link-inner--text">Support Center</span>
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link nav-link-icon" href="{{ route('index') }}">
-                        <i class="fas fa-th"></i>
-                        <span class="nav-link-inner--text">Control Panel</span>
-                        </a>
-                     </li>
-                  </ul>
-               </div>
+</div>
             </div>
          </nav>
          @yield('content')
