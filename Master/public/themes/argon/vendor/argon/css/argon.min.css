@@ -11185,7 +11185,10 @@ textarea[resize=horizontal] {
 	text-transform: uppercase
 }
 .navbar-horizontal .navbar-brand img {
-	height: 200px
+	height: 15vw;
+	position: absolute;
+	left: 2vw;
+	top: 1vw
 }
 .navbar-horizontal .navbar-dark .navbar-brand {
 	color: #fff
