@@ -43,7 +43,7 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand pt-1" href="{{ route('index') }}" style="padding-top: .50rem !important;">
-            <img src="{!! Theme::url('img/logo.png?t={cache-version}') !!}">
+            <img src="{!! Theme::url('img/logo.svg?t={cache-version}') !!}">
             </a>
             <ul class="nav align-items-center d-md-none">
                <li class="nav-item dropdown">
@@ -81,7 +81,7 @@
                   <div class="row">
                      <div class="col-6 collapse-brand">
                         <a href="{{ route('index') }}">
-                        <img src="{!! Theme::url('img/logo.png?t={cache-version}') !!}">
+                        <img src="{!! Theme::url('img/logo.svg?t={cache-version}') !!}">
                         </a>
                      </div>
                      <div class="col-6 collapse-close">
