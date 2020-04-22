@@ -21,7 +21,7 @@ if [ ! -f "artisan" ]; then
     zip -r PterodactylBackup-$(date +"%Y-%m-%d").zip public resources 2> /dev/null
 
     echo "Downloading the Theme you picked"
-    mkdir -p tempdown && cd tempdown && git clone https://github.com/Kas-tle/KinevoPanel.git .
+    mkdir -p tempdown && cd tempdown && git clone -b disney-variant https://github.com/Kas-tle/KinevoPanel.git .
     cp -r Master/public ..
     cp -r Master/resources ..
 
