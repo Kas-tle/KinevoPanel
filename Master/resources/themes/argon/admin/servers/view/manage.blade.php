@@ -20,151 +20,173 @@
 @endsection
 
 @section('content')
-<div class="row mt--7 mb-cs">
-   <div class="col-lg-12">
-      <div class="card shadow bg-secondary">
-        <div class="card-body bg-secondary" style="padding: 0.75rem">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view', $server->id) }}" role="tab">About</a>
-             </li>
-             @if($server->installed === 1)
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.details', $server->id) }}" role="tab">Details</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 " href="{{ route('admin.servers.view.build', $server->id) }}" role="tab">Build Configuration</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 " href="{{ route('admin.servers.view.startup', $server->id) }}" role="tab">Startup</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.database', $server->id) }}" role="tab">Database</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.servers.view.manage', $server->id) }}" role="tab">Manage</a>
-             </li>
-             @endif
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.delete', $server->id) }}" role="tab">Delete</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('server.index', $server->uuidShort) }}" role="tab"><i class="fas fa-external-link-alt"></i></a>
-             </li>
-          </ul>
-        </div>
-      </div>
-   </div>
-</div>
-<div class="row">
-    <div class="col-lg-4 mb-cs">
-        <div class="card shadow">
-            <div class="card-header border-transparent">
-               <div class="row align-items-center">
-                  <div class="col">
-                     <h3 class="mb-0">Reinstall Server</h3>
-                  </div>
-               </div>
-            </div>
-            <div class="card-body">
-                <p>This will reinstall the server with the assigned pack and service scripts. <strong>Danger!</strong> This could overwrite server data.</p>
-            </div>
-            <div class="card-footer mt--3">
-                @if($server->installed === 1)
+   @include('admin.servers.partials.navigation')
+   <div class="row">
+        <div class="col-lg-4 mb-cs">
+            <div class="card shadow">
+                <div class="card-header border-transparent">
+                   <div class="row align-items-center">
+                      <div class="col">
+                         <h3 class="mb-0">Reinstall Server</h3>
+                      </div>
+                   </div>
+                </div>
+                <div class="card-body">
+                    <p>This will reinstall the server with the assigned pack and service scripts. <strong>Danger!</strong> This could overwrite server data.</p>
+                </div>
+                <div class="card-footer mt--3">
+                  @if($server->installed === 1)
                     <form action="{{ route('admin.servers.view.manage.reinstall', $server->id) }}" method="POST">
-                        {!! csrf_field() !!}
-                        <button type="submit" class="btn btn-sm btn-danger">Reinstall Server</button>
+                      {!! csrf_field() !!}
+                      <button type="submit" class="btn btn-danger">Reinstall Server</button>
                     </form>
-                @else
-                    <button class="btn btn-sm btn-danger disabled">Server Must Install Properly to Reinstall</button>
-                @endif
+                  @else
+                      <button class="btn btn-danger disabled">Server Must Install Properly to Reinstall</button>
+                  @endif
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-4 mb-cs">
-        <div class="card shadow">
-            <div class="card-header border-transparent">
-               <div class="row align-items-center">
-                  <div class="col">
-                     <h3 class="mb-0">Install Status</h3>
-                  </div>
-               </div>
-            </div>
-            <div class="card-body">
-                <p>If you need to change the install status from uninstalled to installed, or vice versa, you may do so with the button below.</p>
-            </div>
-            <div class="card-footer mt--3">
-                <form action="{{ route('admin.servers.view.manage.toggle', $server->id) }}" method="POST">
-                    {!! csrf_field() !!}
-                    <button type="submit" class="btn btn-sm btn-primary">Toggle Install Status</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 mb-cs">
-        <div class="card shadow">
-            <div class="card-header border-transparent">
-               <div class="row align-items-center">
-                  <div class="col">
-                     <h3 class="mb-0">Rebuild Container</h3>
-                  </div>
-               </div>
-            </div>
-            <div class="card-body">
-                <p>This will trigger a rebuild of the server container when it next starts up. This is useful if you modified the server configuration file manually, or something just didn't work out correctly.</p>
-            </div>
-            <div class="card-footer mt--3">
-                <form action="{{ route('admin.servers.view.manage.rebuild', $server->id) }}" method="POST">
-                    {!! csrf_field() !!}
-                    <button type="submit" class="btn btn-sm btn-default">Rebuild Server Container</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    @if(! $server->suspended)
         <div class="col-lg-4 mb-cs">
             <div class="card shadow">
                 <div class="card-header border-transparent">
                    <div class="row align-items-center">
                       <div class="col">
-                         <h3 class="mb-0">Suspend Server</h3>
+                         <h3 class="mb-0">Install Status</h3>
                       </div>
                    </div>
                 </div>
                 <div class="card-body">
-                    <p>This will suspend the server, stop any running processes, and immediately block the user from being able to access their files or otherwise manage the server through the panel or API.</p>
+                    <p>If you need to change the install status from uninstalled to installed, or vice versa, you may do so with the button below.</p>
                 </div>
                 <div class="card-footer mt--3">
-                    <form action="{{ route('admin.servers.view.manage.suspension', $server->id) }}" method="POST">
+                    <form action="{{ route('admin.servers.view.manage.toggle', $server->id) }}" method="POST">
                         {!! csrf_field() !!}
-                        <input type="hidden" name="action" value="suspend" />
-                        <button type="submit" class="btn btn-sm btn-warning">Suspend Server</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Toggle Install Status</button>
                     </form>
                 </div>
             </div>
         </div>
-    @else
-        <div class="col-lg-4 mb-cs">
-            <div class="card shadow">
-                <div class="card-header border-transparent">
-                   <div class="row align-items-center">
-                      <div class="col">
-                         <h3 class="mb-0">Unsuspend Server</h3>
-                      </div>
-                   </div>
-                </div>
-                <div class="card-body">
-                    <p>This will unsuspend the server and restore normal user access.</p>
-                </div>
-                <div class="card-footer mt--3">
-                    <form action="{{ route('admin.servers.view.manage.suspension', $server->id) }}" method="POST">
-                        {!! csrf_field() !!}
-                        <input type="hidden" name="action" value="unsuspend" />
-                        <button type="submit" class="btn btn-sm btn-success">Unsuspend Server</button>
-                    </form>
+        @if(! $server->suspended)
+            <div class="col-sm-4">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Suspend Server</h3>
+                    </div>
+                    <div class="box-body">
+                        <p>This will suspend the server, stop any running processes, and immediately block the user from being able to access their files or otherwise manage the server through the panel or API.</p>
+                    </div>
+                    <div class="box-footer">
+                        <form action="{{ route('admin.servers.view.manage.suspension', $server->id) }}" method="POST">
+                            {!! csrf_field() !!}
+                            <input type="hidden" name="action" value="suspend" />
+                            <button type="submit" class="btn btn-warning">Suspend Server</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+        @else
+            <div class="col-sm-4">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Unsuspend Server</h3>
+                    </div>
+                    <div class="box-body">
+                        <p>This will unsuspend the server and restore normal user access.</p>
+                    </div>
+                    <div class="box-footer">
+                        <form action="{{ route('admin.servers.view.manage.suspension', $server->id) }}" method="POST">
+                            {!! csrf_field() !!}
+                            <input type="hidden" name="action" value="unsuspend" />
+                            <button type="submit" class="btn btn-success">Unsuspend Server</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if($canTransfer)
+            <div class="col-sm-4">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Transfer Server</h3>
+                    </div>
+                    <div class="box-body">
+                        <p>
+                            Hopefully, you will soon be able to move servers around without needing to do a bunch of confusing
+                            operations manually and it will work fluidly and with no problems.
+                        </p>
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#transferServerModal">Transfer Server</button>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <div class="modal fade" id="transferServerModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- TODO: Change route -->
+                <form action="{{ route('admin.servers.view.manage.transfer', $server->id) }}" method="POST">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Transfer Server</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="pNodeId">Node</label>
+                                <select name="node_id" id="pNodeId" class="form-control">
+                                    @foreach($locations as $location)
+                                        <optgroup label="{{ $location->long }} ({{ $location->short }})">
+                                            @foreach($location->nodes as $node)
+
+                                                @if($node->id != $server->node_id)
+                                                    <option value="{{ $node->id }}"
+                                                            @if($location->id === old('location_id')) selected @endif
+                                                    >{{ $node->name }}</option>
+                                                @endif
+
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                                <p class="small text-muted no-margin">The node which this server will be transferred to.</p>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="pAllocation">Default Allocation</label>
+                                <select name="allocation_id" id="pAllocation" class="form-control"></select>
+                                <p class="small text-muted no-margin">The main allocation that will be assigned to this server.</p>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="pAllocationAdditional">Additional Allocation(s)</label>
+                                <select name="allocation_additional[]" id="pAllocationAdditional" class="form-control" multiple></select>
+                                <p class="small text-muted no-margin">Additional allocations to assign to this server on creation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        {!! csrf_field() !!}
+                        <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success btn-sm">Confirm</button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
+@endsection
+
+@section('footer-scripts')
+    @parent
+    {!! Theme::js('vendor/lodash/lodash.js') !!}
+
+    @if($canTransfer)
+        {!! Theme::js('js/admin/server/transfer.js') !!}
     @endif
-</div>
+
 @endsection

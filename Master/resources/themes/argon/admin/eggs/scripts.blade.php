@@ -6,15 +6,16 @@
 @extends('layouts.admin')
 
 @section('title')
-    Nests &rarr; Egg: {{ $egg->name }} &rarr; Scripts
+    Nests &rarr; Egg: {{ $egg->name }} &rarr; Install Script
 @endsection
 
 @section('content-header')
-    <h1>{{ $egg->name }}<small>Manage install and upgrade scripts for this Egg.</small></h1>
+    <h1>{{ $egg->name }}<small>Manage the install script for this Egg.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.nests') }}">Service</a></li>
+        <li><a href="{{ route('admin.nests') }}">Nests</a></li>
         <li><a href="{{ route('admin.nests.view', $egg->nest->id) }}">{{ $egg->nest->name }}</a></li>
+        <li><a href="{{ route('admin.nests.egg.view', $egg->id) }}">{{ $egg->name }}</a></li>
         <li class="active">{{ $egg->name }}</li>
     </ol>
 @endsection
@@ -32,7 +33,7 @@
                  <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.nests.egg.variables', $egg->id) }}" role="tab">Variables</a>
               </li>
               <li class="nav-item">
-                 <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.nests.egg.scripts', $egg->id) }}" role="tab">Scripts</a>
+                 <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.nests.egg.scripts', $egg->id) }}" role="tab">Install Script</a>
               </li>
            </ul>
          </div>

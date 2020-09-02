@@ -121,7 +121,7 @@
                         <p class="text-muted small">This package file must be a <code>.tar.gz</code> archive of pack files to be decompressed into the server folder.</p>
                         <p class="text-muted small">If your file is larger than <code>50MB</code> it is recommended to upload it using SFTP. Once you have added this pack to the system, a path will be provided where you should upload the file.</p>
                         <div class="alert alert-info mb-0">
-                            <strong>This server is currently configured with the following limits:</strong><br /><code>upload_max_filesize={{ ini_get('upload_max_filesize') }}</code><br /><code>post_max_size={{ ini_get('post_max_size') }}</code><br /><br />If your file is larger than either of those values this request will fail.
+                            <strong>This node is currently configured with the following limits:</strong><br /><code>upload_max_filesize={{ ini_get('upload_max_filesize') }}</code><br /><code>post_max_size={{ ini_get('post_max_size') }}</code><br /><br />If your file is larger than either of those values this request will fail.
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
 
             $.ajax({
                 method: 'GET',
-                url: Router.route('admin.packs.new.template'),
+                url: '/admin/packs/new/template',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
             }).fail(function (jqXhr) {
                 console.error(jqXhr);

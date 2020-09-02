@@ -32,16 +32,11 @@
                  <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.nests.egg.variables', $egg->id) }}" role="tab">Variables</a>
               </li>
               <li class="nav-item">
-                 <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.nests.egg.scripts', $egg->id) }}" role="tab">Scripts</a>
+                 <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.nests.egg.scripts', $egg->id) }}" role="tab">Install Script</a>
               </li>
            </ul>
          </div>
        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="alert alert-info">
-            <strong>Notice:</strong> Editing an Egg or any of the Process Management fields <em>requires</em> that each Daemon be rebooted in order to apply the changes.
-        </div>
     </div>
 </div>
 <form action="{{ route('admin.nests.egg.view', $egg->id) }}" enctype="multipart/form-data" method="POST">
@@ -106,7 +101,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="pDescription" class="control-label">Description <span class="field-required"></span></label>
+                                <label for="pDescription" class="control-label">Description </label>
                                 <textarea id="pDescription" name="description" class="form-control" rows="6">{{ $egg->description }}</textarea>
                                 <p class="text-muted small">A description of this Egg that will be displayed throughout the Panel as needed.</p>
                             </div>
@@ -176,16 +171,11 @@
                 <div class="card-footer">
                     {!! csrf_field() !!}
                     <button type="submit" name="_method" value="PATCH" class="btn btn-primary btn-sm pull-right">Save</button>
-                    <a href="{{ route('admin.nests.egg.export', ['option' => $egg->id]) }}" class="btn btn-sm btn-info pull-right" style="margin-right:10px;">Export</a>
+                    <a href="{{ route('admin.nests.egg.export', $egg->id) }}" class="btn btn-sm btn-info pull-right" style="margin-right:10px;">Export</a>
                     <button id="deleteButton" type="submit" name="_method" value="DELETE" class="btn btn-danger btn-sm">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="alert alert-info">
-                <strong>Notice:</strong> Editing an Egg or any of the Process Management fields <em>requires</em> that each Daemon be rebooted in order to apply the changes.
             </div>
         </div>
     </div>

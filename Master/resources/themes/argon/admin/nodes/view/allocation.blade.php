@@ -56,10 +56,10 @@
                   <div class="col text-right">
                     <div class="btn-group hidden-xs">
                                <button type="button" id="mass_actions" class="btn btn-sm btn-primary dropdown-toggle disabled"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@lang('server.allocations.mass_actions') <span class="caret"></span>
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mass Actions <span class="caret"></span>
                                </button>
                                <ul class="dropdown-menu dropdown-massactions">
-                                   <a class="dropdown-item" href="#" id="selective-deletion" data-action="selective-deletion"><i class="fas fa-fw fa-trash"></i> @lang('server.allocations.delete')</i></a>
+                                   <a class="dropdown-item" href="#" id="selective-deletion" data-action="selective-deletion"><i class="fas fa-fw fa-trash"></i> Delete</i></a>
                                </ul>
                            </div>
                   </div>
@@ -103,9 +103,6 @@
                             <td class="middle">
                                 @if(is_null($allocation->server_id))
                                     <button data-action="deallocate" data-id="{{ $allocation->id }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                @else
-                                    <button class="btn btn-sm disabled"><i class="fas fa-trash"></i></button>
-                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -243,7 +240,7 @@
         }, function () {
             $.ajax({
                 method: 'DELETE',
-                url: Router.route('admin.nodes.view.allocation.removeSingle', { node: Pterodactyl.node.id, allocation: allocation }),
+                url: '/admin/nodes/view/' + {{ $node->id }} + '/allocation/remove/' + allocation,
                 headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
             }).done(function (data) {
                 element.parent().parent().addClass('warning').delay(100).fadeOut();
@@ -272,7 +269,7 @@
         clearTimeout(fadeTimers[element.data('id')]);
         $.ajax({
             method: 'POST',
-            url: Router.route('admin.nodes.view.allocation.setAlias', { id: Pterodactyl.node.id }),
+            url: '/admin/nodes/view/' + {{ $node->id }} + '/allocation/alias',
             headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
             data: {
                 alias: element.val(),
@@ -346,9 +343,7 @@
             }, function () {
                 $.ajax({
                     method: 'DELETE',
-                    url: Router.route('admin.nodes.view.allocation.removeMultiple', {
-                        node: Pterodactyl.node.id
-                    }),
+                    url: '/admin/nodes/view/' + {{ $node->id }} + '/allocations',
                     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
                     data: JSON.stringify({
                         allocations: selectedIds

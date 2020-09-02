@@ -43,13 +43,13 @@
         <a href="{{ $version->getDiscord() }}"><button class="btn btn-warning" style="width:100%;"><i class="fas fa-fw fa-life-ring"></i> Get Help <small>(via Discord)</small></button></a>
     </div>
     <div class="col-xl-3 col-lg-6 text-center mb-4 mb-xl-0">
-        <a href="https://docs.pterodactyl.io"><button class="btn btn-primary" style="width:100%;"><i class="fas fa-fw fa-link"></i> Documentation</button></a>
+        <a href="https://pterodactyl.io"><button class="btn btn-primary" style="width:100%;"><i class="fas fa-fw fa-link"></i> Documentation</button></a>
     </div>
     <div class="col-xl-3 col-lg-6 text-center mb-4 mb-xl-0">
-        <a href="https://github.com/Pterodactyl/Panel"><button class="btn btn-primary" style="width:100%;"><i class="fab fa-fw fa-github"></i> Github</button></a>
+        <a href="https://github.com/pterodactyl/panel"><button class="btn btn-primary" style="width:100%;"><i class="fab fa-fw fa-github"></i> Github</button></a>
     </div>
     <div class="col-xl-3 col-lg-6 text-center mb-4 mb-xl-0">
-        <a href="https://donorbox.org/pterodactyl"><button class="btn btn-success" style="width:100%;"><i class="fas fa-fw fa-money-bill"></i> Support the Project</button></a>
+        <a href="{{ $version->getDonations() }}"><button class="btn btn-success" style="width:100%;"><i class="fas fa-fw fa-money-bill"></i> Support the Project</button></a>
     </div>
 </div>
 @endsection
