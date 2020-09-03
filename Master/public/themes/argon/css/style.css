@@ -44,14 +44,14 @@
 .table > thead > tr.table-selected > th,
 .table > tbody > tr.table-selected > th,
 .table > tfoot > tr.table-selected > th {
-  background-color: #fcf8e3;
+  background-color: #004053;
 }
 .table-hover > tbody > tr > td.table-selected:hover,
 .table-hover > tbody > tr > th.table-selected:hover,
 .table-hover > tbody > tr.table-selected:hover > td,
 .table-hover > tbody > tr:hover > .table-selected,
 .table-hover > tbody > tr.table-selected:hover > th {
-  background-color: #faf2cc;
+  background-color: #004053;
 }
 
 .card>.overlay,

@@ -11,8 +11,8 @@
 
 #terminal {
     font-family: 'Source Code Pro', monospace;
-    color: rgb(223, 223, 223);
-    background: rgb(26, 26, 26);
+    color: #879395;
+    background: #243c4882;
     font-size: 12px;
     line-height: 14px;
     padding: 10px 10px 0;
@@ -31,7 +31,7 @@
 
 #terminal_input {
     width: 100%;
-    background: rgb(26, 26, 26);
+    background: rgba(13, 19, 57, 0.75);
     border-radius: 0 0 5px 5px;
     padding: 0 0 0 10px !important;
 }
