@@ -4,5 +4,5 @@
     "views-path": "argon",
     "asset-path": "themes/argon",
     "version": "1.0.0",
-	"pterodacty-version": "0.7.13"
+  	"pterodacty-version": "0.7.13"
 }

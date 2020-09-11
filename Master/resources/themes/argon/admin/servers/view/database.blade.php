@@ -20,46 +20,11 @@
 @endsection
 
 @section('content')
-<div class="row mt--7 mb-cs">
-   <div class="col-lg-12">
-      <div class="card shadow bg-secondary">
-        <div class="card-body bg-secondary" style="padding: 0.75rem">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view', $server->id) }}" role="tab">About</a>
-             </li>
-             @if($server->installed === 1)
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.details', $server->id) }}" role="tab">Details</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 " href="{{ route('admin.servers.view.build', $server->id) }}" role="tab">Build Configuration</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 " href="{{ route('admin.servers.view.startup', $server->id) }}" role="tab">Startup</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.servers.view.database', $server->id) }}" role="tab">Database</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.manage', $server->id) }}" role="tab">Manage</a>
-             </li>
-             @endif
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.delete', $server->id) }}" role="tab">Delete</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('server.index', $server->uuidShort) }}" role="tab"><i class="fas fa-external-link-alt"></i></a>
-             </li>
-          </ul>
-        </div>
-      </div>
-   </div>
-</div>
+@include('admin.servers.partials.navigation')
 <div class="row">
     <div class="col-sm-7">
         <div class="alert alert-info">
-            Database passwords can be viewed when <a href="{{ route('server.databases.index', ['server' => $server->uuidShort]) }}">visiting this server</a> on the front-end.
+            Database passwords can be viewed when <a href="/server/{{ $server->uuidShort }}/databases">visiting this server</a> on the front-end.
         </div>
         <div class="card shadow">
             <div class="card-header border-0">
@@ -77,6 +42,7 @@
                         <th>Username</th>
                         <th>Connections From</th>
                         <th>Host</th>
+                        <th>Max Connections</th>
                         <th></th>
                     </tr>
                   </thead>
@@ -87,6 +53,11 @@
                             <td>{{ $database->username }}</td>
                             <td>{{ $database->remote }}</td>
                             <td><code>{{ $database->host->host }}:{{ $database->host->port }}</code></td>
+                            @if($database->max_connections != null)
+                                <td>{{ $database->max_connections }}</td>
+                            @else
+                                <td>Unlimited</td>
+                            @endif
                             <td class="text-center">
                                 <button data-action="reset-password" data-id="{{ $database->id }}" class="btn btn-sm btn-primary"><i class="fas fa-sync"></i></button>
                                 <button data-action="remove" data-id="{{ $database->id }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
@@ -132,6 +103,11 @@
                         <input id="pRemote" type="text" name="remote" class="form-control" value="%" />
                         <p class="text-muted small">This should reflect the IP address that connections are allowed from. Uses standard MySQL notation. If unsure leave as <code>%</code>.</p>
                     </div>
+                    <div class="form-group">
+                        <label for="pmax_connections" class="control-label">Concurrent Connections</label>
+                        <input id="pmax_connections" type="text" name="max_connections" class="form-control"/>
+                        <p class="text-muted small">This should reflect the max number of concurrent connections from this user to the database. Leave empty for unlimited</p>
+                    </div>
                 </div>
                 <div class="card-footer mt--3">
                     {!! csrf_field() !!}
@@ -163,7 +139,7 @@
         }, function () {
             $.ajax({
                 method: 'DELETE',
-                url: Router.route('admin.servers.view.database.delete', { server: '{{ $server->id }}', database: self.data('id') }),
+                url: '/admin/servers/view/{{ $server->id }}/database/' + self.data('id') + '/delete',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
             }).done(function () {
                 self.parent().parent().slideUp();
@@ -184,7 +160,7 @@
         $(this).addClass('disabled').find('i').addClass('fa-spin');
         $.ajax({
             type: 'PATCH',
-            url: Router.route('admin.servers.view.database', { server: '{{ $server->id }}' }),
+            url: '/admin/servers/view/{{ $server->id }}/database',
             headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
             data: { database: $(this).data('id') },
         }).done(function (data) {

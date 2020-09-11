@@ -20,42 +20,7 @@
 @endsection
 
 @section('content')
-<div class="row mt--7 mb-cs">
-   <div class="col-lg-12">
-      <div class="card shadow bg-secondary">
-        <div class="card-body bg-secondary" style="padding: 0.75rem">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view', $server->id) }}" role="tab">About</a>
-             </li>
-             @if($server->installed === 1)
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.details', $server->id) }}" role="tab">Details</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 " href="{{ route('admin.servers.view.build', $server->id) }}" role="tab">Build Configuration</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 " href="{{ route('admin.servers.view.startup', $server->id) }}" role="tab">Startup</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.database', $server->id) }}" role="tab">Database</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.manage', $server->id) }}" role="tab">Manage</a>
-             </li>
-             @endif
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.servers.view.delete', $server->id) }}" role="tab">Delete</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('server.index', $server->uuidShort) }}" role="tab"><i class="fas fa-external-link-alt"></i></a>
-             </li>
-          </ul>
-        </div>
-      </div>
-   </div>
-</div>
+@include('admin.servers.partials.navigation')
 <div class="row">
     <div class="col-md-6">
         <div class="card shadow">

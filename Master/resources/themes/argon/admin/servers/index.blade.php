@@ -90,8 +90,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('server.index', $server->uuidShort) }}"><i class="fas fa-wrench"></i></a>
-                                    <a class="btn btn-sm btn-danger console-popout" href="{{ route('server.console', $server->uuidShort) }}"><i class="fas fa-terminal"></i></a>
+                                    <a class="btn btn-sm btn-primary" href="/server/{{ $server->uuidShort }}"><i class="fa fa-wrench"></i></a>
                                 </td>
                             </tr>
                         @endforeach

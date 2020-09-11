@@ -33,7 +33,7 @@
                  <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.nests.egg.variables', $egg->id) }}" role="tab">Variables</a>
               </li>
               <li class="nav-item">
-                 <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.nests.egg.scripts', $egg->id) }}" role="tab">Scripts</a>
+                 <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.nests.egg.scripts', $egg->id) }}" role="tab">Install Script</a>
               </li>
            </ul>
          </div>
@@ -52,7 +52,7 @@
 <div class="row">
     @foreach($egg->variables as $variable)
         <div class="col-sm-6">
-          <form action="{{ route('admin.nests.egg.variables.edit', ['id' => $egg->id, 'variable' => $variable->id]) }}" method="POST">
+          <form action="{{ route('admin.nests.egg.variables.edit', ['egg' => $egg->id, 'variable' => $variable->id]) }}" method="POST">
             <div class="card shadow">
                 <div class="card-header border-transparent">
                    <div class="row align-items-center">

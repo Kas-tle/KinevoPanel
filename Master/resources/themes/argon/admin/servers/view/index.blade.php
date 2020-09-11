@@ -19,42 +19,7 @@
 @endsection
 
 @section('content')
-<div class="row mt--7 mb-cs">
-   <div class="col-lg-12">
-      <div class="card shadow bg-secondary">
-        <div class="card-body bg-secondary" style="padding: 0.75rem">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 active" href="{{ route('admin.servers.view', $server->id) }}" role="tab">About</a>
-             </li>
-             @if($server->installed === 1)
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.details', $server->id) }}" role="tab">Details</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.build', $server->id) }}" role="tab">Build Configuration</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.startup', $server->id) }}" role="tab">Startup</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.database', $server->id) }}" role="tab">Database</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.manage', $server->id) }}" role="tab">Manage</a>
-             </li>
-             @endif
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('admin.servers.view.delete', $server->id) }}" role="tab">Delete</a>
-             </li>
-             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" href="{{ route('server.index', $server->uuidShort) }}" role="tab"><i class="fas fa-external-link-alt"></i></a>
-             </li>
-          </ul>
-        </div>
-      </div>
-   </div>
-</div>
+@include('admin.servers.partials.navigation')
 <div class="row">
     <div class="col-sm-8 mb-cs">
         <div class="row">
@@ -86,31 +51,67 @@
                                 <td><code>{{ $server->uuid }}</code></td>
                             </tr>
                             <tr>
-                                <td>Service</td>
+                                <td>Current Egg</td>
                                 <td>
                                     <a href="{{ route('admin.nests.view', $server->nest_id) }}">{{ $server->nest->name }}</a> ::
                                     <a href="{{ route('admin.nests.egg.view', $server->egg_id) }}">{{ $server->egg->name }}</a>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Name</td>
+                                <td>Server Name</td>
                                 <td>{{ $server->name }}</td>
                             </tr>
                             <tr>
+                                <td>CPU Limit</td>
+                                <td>
+                                    @if($server->cpu === 0)
+                                        <code>Unlimited</code>
+                                    @else
+                                        <code>{{ $server->cpu }}%</code>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CPU Threads</td>
+                                <td>
+                                    @if($server->threads != null)
+                                        <code>{{ $server->threads }}</code>
+                                    @else
+                                        <span class="label label-default">Not Set</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Memory</td>
-                                <td><code>{{ $server->memory }}MB</code> / <code data-toggle="tooltip" data-placement="top" title="Swap Space">{{ $server->swap }}MB</code></td>
+                                <td>
+                                    @if($server->memory === 0)
+                                        <code>Unlimited</code>
+                                    @else
+                                        <code>{{ $server->memory }}MB</code>
+                                    @endif
+                                    /
+                                    @if($server->swap === 0)
+                                        <code data-toggle="tooltip" data-placement="top" title="Swap Space">Not Set</code>
+                                    @elseif($server->swap === -1)
+                                        <code data-toggle="tooltip" data-placement="top" title="Swap Space">Unlimited</code>
+                                    @else
+                                        <code data-toggle="tooltip" data-placement="top" title="Swap Space"> {{ $server->swap }}MB</code>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Disk Space</td>
-                                <td><code>{{ $server->disk }}MB</code></td>
+                                <td>
+                                    @if($server->disk === 0)
+                                        <code>Unlimited</code>
+                                    @else
+                                        <code>{{ $server->disk }}MB</code>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Block IO Weight</td>
                                 <td><code>{{ $server->io }}</code></td>
-                            </tr>
-                            <tr>
-                                <td>CPU Limit</td>
-                                <td><code>{{ $server->cpu }}%</code></td>
                             </tr>
                             <tr>
                                 <td>Default Connection</td>

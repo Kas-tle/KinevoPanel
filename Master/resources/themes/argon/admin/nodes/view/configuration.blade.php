@@ -56,10 +56,10 @@
                </div>
             </div>
             <div class="card-body">
-                <pre class="no-margin">{{ $node->getConfigurationAsJson(true) }}</pre>
+                <pre class="no-margin">{{ $node->getYamlConfiguration() }}</pre>
             </div>
             <div class="card-footer">
-                <p class="no-margin mb-0">This file should be placed in your daemon's <code>config</code> directory in a file called <code>core.json</code>.</p>
+                <p class="no-margin mb-0">This file should be placed in your daemon's root directory (usually <code>/etc/pterodactyl</code>) in a file called <code>config.yml</code>.</p>
             </div>
         </div>
     </div>
@@ -73,7 +73,10 @@
                </div>
             </div>
             <div class="card-body">
-                <p class="text-muted small">To simplify the configuration of nodes it is possible to fetch the config from the panel. A token is required for this process. The button below will generate a token and provide you with the commands necessary for automatic configuration of the node. <em>Tokens are only valid for 5 minutes.</em></p>
+              <p class="text-muted small">
+                  Use the button below to generate a custom deployment command that can be used to configure
+                  wings on the target server with a single command.
+              </p>
             </div>
             <div class="card-footer">
                 <button type="button" id="configTokenBtn" class="btn btn-sm btn-primary btn-block">Generate Token</button>
@@ -91,8 +94,7 @@
             swal({
                 type: 'success',
                 title: 'Token created.',
-                text: 'Your token will expire <strong>in 5 minutes.</strong><br /><br />' +
-                      '<p>To auto-configure your node run the following command:<br /><small><pre>npm run configure -- --panel-url {{ config('app.url') }} --token ' + data.token + '</pre></small></p>',
+                text: '<p>To auto-configure your node run the following command:<br /><small><pre>cd /etc/pterodactyl && sudo ./wings configure --panel-url {{ config('app.url') }} --token ' + data.token + ' --node ' + data.node + '{{ config('app.debug') ? ' --allow-insecure' : '' }}</pre></small></p>',
                 html: true
             })
         }).fail(function () {

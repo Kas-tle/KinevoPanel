@@ -99,11 +99,6 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link {{ Route::currentRouteName() !== 'admin.statistics' ?: 'active' }}" href="{{ route('admin.statistics') }}">
-                     <i class="fas fa-tachometer-alt"></i> Statistics
-                     </a>
-                  </li>
-                  <li class="nav-item">
                      <a class="nav-link {{ ! starts_with(Route::currentRouteName(), 'admin.settings') ?: 'active' }}" href="{{ route('admin.settings')}}">
                      <i class="fas fa-wrench"></i> Settings
                      </a>
@@ -146,6 +141,11 @@
                <hr class="my-3">
                <h6 class="navbar-heading text-muted">Service Management</h6>
                <ul class="navbar-nav mb-md-3">
+                  <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.mounts') ?: 'active' }}">
+                     <a href="{{ route('admin.mounts') }}">
+                         <i class="fa fa-magic"></i> <span>Mounts</span>
+                     </a>
+                  </li>
                   <li class="nav-item">
                      <a class="nav-link {{ ! starts_with(Route::currentRouteName(), 'admin.nests') ?: 'active' }}" href="{{ route('admin.nests') }}">
                      <i class="fas fa-th-large"></i> Nests
@@ -204,7 +204,7 @@
                <div class="header-body">
                   @if (count($errors) > 0)
                   <div class="alert alert-danger mt-4 mb--2">
-                     @lang('base.validation_error')<br><br>
+                     There was an error validating the data provided.<br><br>
                      <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -227,9 +227,8 @@
          </div>
       </div>
       @section('footer-scripts')
-        {!! Theme::js('js/keyboard.polyfill.js?t={cache-version}') !!}
+        <script src="/js('js/keyboard.polyfill.js" type="application/javascript"></script>
         <script>keyboardeventKeyPolyfill.polyfill();</script>
-        {!! Theme::js('js/laroute.js?t={cache-version}') !!}
         {!! Theme::js('vendor/jquery/jquery.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/sweetalert/sweetalert.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/bootstrap/v4/dist/js/bootstrap.bundle.min.js?t={cache-version}') !!}
@@ -237,7 +236,7 @@
         {!! Theme::js('vendor/socketio/socket.io.v203.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/bootstrap-notify/bootstrap-notify.min.js?t={cache-version}') !!}
         {!! Theme::js('js/admin/functions.js?t={cache-version}') !!}
-        {!! Theme::js('js/autocomplete.js?t={cache-version}') !!}
+        <script src="/js/autocomplete.js" type="application/javascript"></script>
         {!! Theme::js('vendor/select2/dist/js/select2.full.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/argon/js/argon.min.js?t={cache-version}') !!}
         @if(Auth::user()->root_admin)

@@ -397,7 +397,7 @@
                   @endif
                   @if (count($errors) > 0)
                   <div class="alert alert-danger mt-4 mb--2">
-                     @lang('base.validation_error')<br><br>
+                     There was an error validating the data provided.<br><br>
                      <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -420,16 +420,15 @@
          </div>
       </div>
       @section('footer-scripts')
-        {!! Theme::js('js/keyboard.polyfill.js?t={cache-version}') !!}
+        <script src="/js/keyboard.polyfill.js" type="application/javascript"></script>
         <script>keyboardeventKeyPolyfill.polyfill();</script>
-        {!! Theme::js('js/laroute.js?t={cache-version}') !!}
         {!! Theme::js('vendor/jquery/jquery.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/sweetalert/sweetalert.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/bootstrap/v4/dist/js/bootstrap.bundle.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/slimscroll/jquery.slimscroll.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/socketio/socket.io.v203.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/bootstrap-notify/bootstrap-notify.min.js?t={cache-version}') !!}
-        {!! Theme::js('js/autocomplete.js?t={cache-version}') !!}
+        <script src="/js/autocomplete.js" type="application/javascript"></script>
         {!! Theme::js('vendor/argon/js/argon.min.js?t={cache-version}') !!}
         @if(Auth::user()->root_admin)
         <script>

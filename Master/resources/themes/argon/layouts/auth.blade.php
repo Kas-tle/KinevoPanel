@@ -82,7 +82,7 @@
       </footer>
       {!! Theme::js('vendor/jquery/jquery.min.js?t={cache-version}') !!}
       {!! Theme::js('vendor/bootstrap/v4/dist/js/bootstrap.bundle.min.js?t={cache-version}') !!}
-      {!! Theme::js('js/autocomplete.js?t={cache-version}') !!}
+      <script src="/js/autocomplete.js" type="application/javascript"></script>
       {!! Theme::js('vendor/argon/js/argon.min.js?t={cache-version}') !!}
    </body>
 </html>
